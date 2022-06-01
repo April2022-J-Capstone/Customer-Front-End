@@ -10,6 +10,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { RestaurantsComponent } from './pages/browsing/restaurants/restaurants.component';
 import { UserHomeComponent } from './pages/user-home/user-home.component';
+import { RestaurantCardComponent } from './components/cards/restaurant-card/restaurant-card.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { UserHomeComponent } from './pages/user-home/user-home.component';
     FooterComponent,
     RegisterComponent,
     RestaurantsComponent,
-    UserHomeComponent
+    UserHomeComponent,
+    RestaurantCardComponent
   ],
   imports: [
     BrowserModule,
