@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { RestaurantsComponent } from './pages/browsing/restaurants/restaurants.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
@@ -7,8 +8,7 @@ import { UserHomeComponent } from './pages/user-home/user-home.component';
 
 const routes: Routes = [
     {
-        path: "",
-        pathMatch: "full",
+        path: "home",
         component: HomeComponent
     },
     {
@@ -21,7 +21,22 @@ const routes: Routes = [
     },
     {
         path: "user/:userId",
-        component: UserHomeComponent
+        children: [
+            {
+                path: "",
+                component: UserHomeComponent
+            },
+            {
+                path: "restaurants",
+                component: RestaurantsComponent
+            }
+        ]
+        
+    },
+    {
+        path: "",
+        redirectTo: "/home",
+        pathMatch: "full"
     }
 ];
 
