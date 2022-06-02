@@ -12,6 +12,7 @@ import { RestaurantsComponent } from './pages/browsing/restaurants/restaurants.c
 import { UserHomeComponent } from './pages/user-home/user-home.component';
 import { RestaurantCardComponent } from './components/cards/restaurant-card/restaurant-card.component';
 import { RestaurantMenuComponent } from './pages/browsing/restaurant-menu/restaurant-menu.component';
+import { MenuItemCardComponent } from './components/cards/menu-item-card/menu-item-card.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { RestaurantMenuComponent } from './pages/browsing/restaurant-menu/restau
     RestaurantsComponent,
     UserHomeComponent,
     RestaurantCardComponent,
-    RestaurantMenuComponent
+    RestaurantMenuComponent,
+    MenuItemCardComponent
   ],
   imports: [
     BrowserModule,

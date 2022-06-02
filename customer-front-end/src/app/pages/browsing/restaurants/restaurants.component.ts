@@ -86,6 +86,32 @@ export class RestaurantsComponent implements OnInit {
             zip_code: 12345,
             owner_name: "Owner6",
             restaurantTags: ["Americana", "$$"]
+        },
+        {
+            restaurantId: 7,
+            location_id: 1,
+            owner_id: 7,
+            name: "Testeraunt7",
+            location_name: "Test Location",
+            address: "123 Test Lane",
+            city: "Testville",
+            state: "NY",
+            zip_code: 12345,
+            owner_name: "Owner7",
+            restaurantTags: ["Americana", "$$"]
+        },
+        {
+            restaurantId: 8,
+            location_id: 1,
+            owner_id: 8,
+            name: "Testeraunt8",
+            location_name: "Test Location",
+            address: "123 Test Lane",
+            city: "Testville",
+            state: "NY",
+            zip_code: 12345,
+            owner_name: "Owner8",
+            restaurantTags: ["Americana", "$$"]
         }
     ];
 
