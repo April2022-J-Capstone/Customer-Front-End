@@ -11,6 +11,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { RestaurantsComponent } from './pages/browsing/restaurants/restaurants.component';
 import { UserHomeComponent } from './pages/user-home/user-home.component';
 import { RestaurantCardComponent } from './components/cards/restaurant-card/restaurant-card.component';
+import { RestaurantMenuComponent } from './pages/browsing/restaurant-menu/restaurant-menu.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { RestaurantCardComponent } from './components/cards/restaurant-card/rest
     RegisterComponent,
     RestaurantsComponent,
     UserHomeComponent,
-    RestaurantCardComponent
+    RestaurantCardComponent,
+    RestaurantMenuComponent
   ],
   imports: [
     BrowserModule,

@@ -8,7 +8,7 @@
         <a routerLink="/">Back</a>
     </div>
     <div class="row">
-        <div class="d-flex flex-column align-content-center justify-content-center" style="background-color: beige;">
+        <div class="d-flex flex-wrap align-content-center justify-content-center">
             <app-restaurant-card *ngFor="let restaurant of allRestaurants" [restaurantData]="restaurant"></app-restaurant-card>
         </div>
     </div>
