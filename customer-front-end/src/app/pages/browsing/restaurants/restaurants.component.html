@@ -4,12 +4,12 @@
 
         </div>
     </div>
-    <div id="return-holder" class="row">
+    <div id="return-holder" class="row m-1">
         <a routerLink="/">Back</a>
     </div>
     <div class="row">
         <div class="d-flex flex-column align-content-center justify-content-center" style="background-color: beige;">
-            
+            <app-restaurant-card *ngFor="let restaurant of allRestaurants" [restaurantData]="restaurant"></app-restaurant-card>
         </div>
     </div>
 </div>

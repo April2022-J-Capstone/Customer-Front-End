@@ -20,15 +20,15 @@ const routes: Routes = [
         component: RegisterComponent
     },
     {
+        path: "restaurants",
+        component: RestaurantsComponent
+    },
+    {
         path: "user/:userId",
         children: [
             {
                 path: "",
                 component: UserHomeComponent
-            },
-            {
-                path: "restaurants",
-                component: RestaurantsComponent
             }
         ]
         

@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Restaurant } from 'src/app/interfaces/restaurant';
 
 @Component({
-  selector: 'app-restaurant-card',
-  templateUrl: './restaurant-card.component.html',
-  styleUrls: ['./restaurant-card.component.css']
+    selector: 'app-restaurant-card',
+    templateUrl: './restaurant-card.component.html',
+    styleUrls: ['./restaurant-card.component.css']
 })
 export class RestaurantCardComponent implements OnInit {
 
-  constructor() { }
+    @Input()
+    restaurantData!: Restaurant;
 
-  ngOnInit(): void {
-  }
+    constructor() { }
+
+    ngOnInit(): void {
+    }
 
 }
