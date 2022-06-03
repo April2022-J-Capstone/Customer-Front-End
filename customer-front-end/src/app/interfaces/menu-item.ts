@@ -3,6 +3,6 @@ export interface MenuItem {
     restaurants_id: Number;
     name: String;
     description: String;
-    price: Number;
+    price: number;
     restaurant_name: String;
 }
