@@ -14,6 +14,8 @@ import { UserHomeComponent } from './pages/user-home/user-home.component';
 import { RestaurantCardComponent } from './components/cards/restaurant-card/restaurant-card.component';
 import { RestaurantMenuComponent } from './pages/browsing/restaurant-menu/restaurant-menu.component';
 import { MenuItemCardComponent } from './components/cards/menu-item-card/menu-item-card.component';
+import { MenuItemModalComponent } from './components/modals/menu-item-modal/menu-item-modal.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -27,12 +29,14 @@ import { MenuItemCardComponent } from './components/cards/menu-item-card/menu-it
     UserHomeComponent,
     RestaurantCardComponent,
     RestaurantMenuComponent,
-    MenuItemCardComponent
+    MenuItemCardComponent,
+    MenuItemModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
