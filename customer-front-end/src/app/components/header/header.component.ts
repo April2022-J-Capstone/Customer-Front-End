@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CartModalComponent } from '../modals/cart-modal/cart-modal.component';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+    constructor(private modalService: NgbModal) { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
+
+    openCart() {
+        this.modalService.open(CartModalComponent);
+    }
 
 }
