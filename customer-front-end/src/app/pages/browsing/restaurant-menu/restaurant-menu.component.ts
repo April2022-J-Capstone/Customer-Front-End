@@ -32,8 +32,6 @@ export class RestaurantMenuComponent implements OnInit {
                 });
             }
         });
-
-        
     }
 
 }
