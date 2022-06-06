@@ -5,4 +5,5 @@ export interface MenuItem {
     description: String;
     price: number;
     restaurant_name: String;
+    image_url: String;
 }

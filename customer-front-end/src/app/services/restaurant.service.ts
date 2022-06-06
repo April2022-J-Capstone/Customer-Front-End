@@ -11,10 +11,10 @@ export class RestaurantService {
   constructor(private httpClient: HttpClient) { }
 
   getAllRestaurants() {
-    return this.httpClient.get<Restaurant[]>("http://localhost:8080/restaurant/restaurants");
+    return this.httpClient.get<Restaurant[]>("http://localhost:8080/restaurant-service/restaurants");
   }
   
   getRestaurantMenu(restaurantId: String) {
-    return this.httpClient.get<MenuItem[]>("http://localhost:8080/restaurant/restaurant/" + restaurantId + "/menuItems");
+    return this.httpClient.get<MenuItem[]>("http://localhost:8080/restaurant-service/restaurant/" + restaurantId + "/menuItems");
   }
 }
