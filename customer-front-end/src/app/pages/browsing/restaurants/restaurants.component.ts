@@ -16,6 +16,7 @@ export class RestaurantsComponent implements OnInit {
 
     ngOnInit(): void {
         this.restaurantService.getAllRestaurants().subscribe((data: Restaurant[]) => {
+            this.restaurantsLoaded = false;
             if(data) {
                 this.restaurantsLoaded = true;
                 this.allRestaurants = [...data]
