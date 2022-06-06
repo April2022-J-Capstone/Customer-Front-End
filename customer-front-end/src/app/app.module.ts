@@ -17,6 +17,7 @@ import { MenuItemCardComponent } from './components/cards/menu-item-card/menu-it
 import { MenuItemModalComponent } from './components/modals/menu-item-modal/menu-item-modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartItemCardComponent } from './components/cards/cart-item-card/cart-item-card.component';
+import { CartModalComponent } from './components/modals/cart-modal/cart-modal.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { CartItemCardComponent } from './components/cards/cart-item-card/cart-it
     RestaurantMenuComponent,
     MenuItemCardComponent,
     MenuItemModalComponent,
-    CartItemCardComponent
+    CartItemCardComponent,
+    CartModalComponent
   ],
   imports: [
     BrowserModule,

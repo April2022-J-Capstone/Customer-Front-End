@@ -18,7 +18,7 @@ export class CartService {
     }
 
     removeFromCart(cartId: number) {
-        this.cart.splice(cartId, 1)
+        this.cart.splice(cartId, 1);
         console.log(this.cart);
     }
 }

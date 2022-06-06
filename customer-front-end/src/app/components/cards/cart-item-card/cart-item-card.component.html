@@ -1,1 +1,11 @@
-<p>cart-item-card works!</p>
+<div class="card" style="max-height: 100px;">
+    <div class="card-header">
+        <h6>{{data.name}} - {{data.price | currency}}</h6>
+    </div>
+    <div class="card-body">
+        <div class="d-flex w-100">
+            <img class="img-fluid" src="{{data.image_url}}"/>
+            <button type="button" class="btn-close" aria-label="delete item" (click)="removeFromCart()"></button>
+        </div>
+    </div>
+</div>
