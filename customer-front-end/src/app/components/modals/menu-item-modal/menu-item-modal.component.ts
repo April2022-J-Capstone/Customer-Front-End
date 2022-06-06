@@ -20,6 +20,7 @@ export class MenuItemModalComponent implements OnInit {
 
     addToCart() {
         this.cartService.addItemToCart(this.data);
+        this.activeModal.close("Cart click");
     }
 
 }

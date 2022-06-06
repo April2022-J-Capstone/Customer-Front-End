@@ -12,6 +12,7 @@ export class CartModalComponent implements OnInit {
     constructor(public activeModal: NgbActiveModal, public cartService: CartService) { }
 
     ngOnInit(): void {
+        
     }
 
     checkout() {
