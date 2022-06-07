@@ -18,6 +18,9 @@ import { MenuItemModalComponent } from './components/modals/menu-item-modal/menu
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartItemCardComponent } from './components/cards/cart-item-card/cart-item-card.component';
 import { CartModalComponent } from './components/modals/cart-modal/cart-modal.component';
+import { OrderSummaryComponent } from './pages/checkout/order-summary/order-summary.component';
+import { PaymentMethodComponent } from './pages/checkout/payment-method/payment-method.component';
+import { OrderConfirmationComponent } from './pages/checkout/order-confirmation/order-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import { CartModalComponent } from './components/modals/cart-modal/cart-modal.co
     MenuItemCardComponent,
     MenuItemModalComponent,
     CartItemCardComponent,
-    CartModalComponent
+    CartModalComponent,
+    OrderSummaryComponent,
+    PaymentMethodComponent,
+    OrderConfirmationComponent
   ],
   imports: [
     BrowserModule,

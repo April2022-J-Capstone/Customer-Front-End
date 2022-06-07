@@ -20,21 +20,21 @@ export class OrderDataService {
         }
     }
 
-    addRestaurant(id:Number) {
-        if (this.order.restaurantIds.includes(id) == false) {
-            this.order.restaurantIds.push(id);
-            console.log("Added " + id + " to restaurant IDs");
+    addRestaurant(restaurantId:Number) {
+        if (this.order.restaurantIds.includes(restaurantId) == false) {
+            this.order.restaurantIds.push(restaurantId);
+            console.log("Added " + restaurantId + " to restaurant IDs");
         } else {
             console.log("Restaurant already present in order.");
         }
     }
 
-    removeRestaurant(id:Number) {
-        if (this.order.restaurantIds.includes(id) == true) {
-            this.order.restaurantIds.splice(this.order.restaurantIds.indexOf(id), 1);
-            console.log("Removed " + id + " from restaurant IDs");
+    removeRestaurant(restaurantId:Number) {
+        if (this.order.restaurantIds.includes(restaurantId) == true) {
+            this.order.restaurantIds.splice(this.order.restaurantIds.indexOf(restaurantId), 1);
+            console.log("Removed " + restaurantId + " from restaurant IDs");
         } else {
-            console.log("No restaurant with id " + id + " present in order.");
+            console.log("No restaurant with id " + restaurantId + " present in order.");
         }
     }
 
@@ -42,5 +42,9 @@ export class OrderDataService {
         this.order.items = [...this.cartService.cart];
         console.log("Added items from cart to order.");
         console.log(this.order.items);
+    }
+
+    removeItemFromOrder(id:Number) {
+        this.order.items.splice(id.valueOf(), 1);
     }
 }
