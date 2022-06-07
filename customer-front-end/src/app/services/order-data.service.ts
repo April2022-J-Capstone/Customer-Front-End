@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NewOrder } from '../interfaces/new-order';
+import { CartService } from './cart.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ export class OrderDataService {
 
     order: NewOrder;
 
-    constructor() {
+    constructor(private cartService: CartService) {
         this.order = {
             subTotal: 0,
             deliveryFee: 0,
@@ -35,6 +36,11 @@ export class OrderDataService {
         } else {
             console.log("No restaurant with id " + id + " present in order.");
         }
-        
+    }
+
+    addItemsFromCart() {
+        this.order.items = [...this.cartService.cart];
+        console.log("Added items from cart to order.");
+        console.log(this.order.items);
     }
 }

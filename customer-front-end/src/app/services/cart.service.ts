@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CartItem } from '../interfaces/cart-item';
 import { MenuItem } from '../interfaces/menu-item';
 
 @Injectable({
@@ -6,13 +7,13 @@ import { MenuItem } from '../interfaces/menu-item';
 })
 export class CartService {
 
-    cart: MenuItem[] = [];
+    cart: CartItem[] = [];
 
     constructor() {
 
     }
 
-    addItemToCart(item: MenuItem) {
+    addItemToCart(item: CartItem) {
         this.cart.push(item);
         console.log(this.cart);
     }
