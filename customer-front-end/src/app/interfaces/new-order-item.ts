@@ -1,7 +1,7 @@
 export interface NewOrderItem {
-    menuItemId: Number;
+    menuItemId: number;
     notes?: String;
-    discount?: Number;
-    price: Number;
-    discountIDs?: Number[];
+    discount?: number;
+    price: number;
+    discountIDs?: number[];
 }

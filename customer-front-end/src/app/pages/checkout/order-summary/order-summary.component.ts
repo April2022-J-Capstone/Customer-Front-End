@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CartService } from 'src/app/services/cart.service';
 import { OrderDataService } from 'src/app/services/order-data.service';
 
 @Component({
@@ -8,9 +9,13 @@ import { OrderDataService } from 'src/app/services/order-data.service';
 })
 export class OrderSummaryComponent implements OnInit {
 
-  constructor(private orderService: OrderDataService) { }
+    constructor(public orderService: OrderDataService, public cartService: CartService) { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
+
+    placeOrder() {
+        this.orderService.placeOrder();
+    }
 
 }

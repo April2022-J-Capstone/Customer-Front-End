@@ -21,9 +21,11 @@ import { CartModalComponent } from './components/modals/cart-modal/cart-modal.co
 import { OrderSummaryComponent } from './pages/checkout/order-summary/order-summary.component';
 import { PaymentMethodComponent } from './pages/checkout/payment-method/payment-method.component';
 import { OrderConfirmationComponent } from './pages/checkout/order-confirmation/order-confirmation.component';
+import { OrderItemCardComponent } from './components/cards/order-item-card/order-item-card.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
-  declarations: [
+declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
@@ -40,15 +42,18 @@ import { OrderConfirmationComponent } from './pages/checkout/order-confirmation/
     CartModalComponent,
     OrderSummaryComponent,
     PaymentMethodComponent,
-    OrderConfirmationComponent
-  ],
-  imports: [
+    OrderConfirmationComponent,
+    OrderItemCardComponent
+],
+imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     NgbModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+],
+providers: [
+    DatePipe
+],
+bootstrap: [AppComponent]
 })
 export class AppModule { }

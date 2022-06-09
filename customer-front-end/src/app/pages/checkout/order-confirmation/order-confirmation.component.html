@@ -1,1 +1,5 @@
-<p>order-confirmation works!</p>
+<div class="container-lg text-center">
+    <h3>Order Confirmation Page</h3>
+    <p *ngIf="orderSuccessful">Order was successfully placed.</p>
+    <p *ngIf="!orderSuccessful">Order failed.</p>
+</div>

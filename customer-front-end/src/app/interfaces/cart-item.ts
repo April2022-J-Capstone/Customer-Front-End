@@ -1,11 +1,12 @@
 export interface CartItem {
     /* NEW ORDER ITEM FIELDS */
-    menuItemId: Number;
+    menuItemId: number;
     notes?: String;
-    discount?: Number;
-    price: Number;
-    discountIDs?: Number[];
+    discount?: number;
+    price: number;
+    discountIDs?: number[];
     /* MENU ITEM FIELDS */
+    name: String;
     description: String;
     image_url: String;
 }
