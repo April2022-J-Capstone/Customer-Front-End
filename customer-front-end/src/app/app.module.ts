@@ -18,9 +18,14 @@ import { MenuItemModalComponent } from './components/modals/menu-item-modal/menu
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartItemCardComponent } from './components/cards/cart-item-card/cart-item-card.component';
 import { CartModalComponent } from './components/modals/cart-modal/cart-modal.component';
+import { OrderSummaryComponent } from './pages/checkout/order-summary/order-summary.component';
+import { PaymentMethodComponent } from './pages/checkout/payment-method/payment-method.component';
+import { OrderConfirmationComponent } from './pages/checkout/order-confirmation/order-confirmation.component';
+import { OrderItemCardComponent } from './components/cards/order-item-card/order-item-card.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
-  declarations: [
+declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
@@ -34,15 +39,21 @@ import { CartModalComponent } from './components/modals/cart-modal/cart-modal.co
     MenuItemCardComponent,
     MenuItemModalComponent,
     CartItemCardComponent,
-    CartModalComponent
-  ],
-  imports: [
+    CartModalComponent,
+    OrderSummaryComponent,
+    PaymentMethodComponent,
+    OrderConfirmationComponent,
+    OrderItemCardComponent
+],
+imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     NgbModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+],
+providers: [
+    DatePipe
+],
+bootstrap: [AppComponent]
 })
 export class AppModule { }

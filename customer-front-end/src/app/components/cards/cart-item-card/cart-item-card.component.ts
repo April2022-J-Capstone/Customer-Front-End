@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MenuItem } from 'src/app/interfaces/menu-item';
+import { CartItem } from 'src/app/interfaces/cart-item';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { CartService } from 'src/app/services/cart.service';
 export class CartItemCardComponent implements OnInit {
 
     @Input()
-    data!: MenuItem
+    data!: CartItem
     @Input()
     cartID!: number;
 

@@ -1,6 +1,6 @@
 export interface MenuItem {
-    itemId: Number;
-    restaurants_id: Number;
+    itemId: number;
+    restaurants_id: number;
     name: String;
     description: String;
     price: number;

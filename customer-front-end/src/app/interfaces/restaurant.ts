@@ -1,13 +1,13 @@
 export interface Restaurant {
-    restaurantId: Number;
-    location_id: Number;
-    owner_id: Number;
+    restaurantId: number;
+    location_id: number;
+    owner_id: number;
     name: String;
     location_name: String;
     address: String;
     city: String;
     state: String;
-    zip_code: Number;
+    zip_code: number;
     owner_name: String;
     restaurantTags: String[];
 }
