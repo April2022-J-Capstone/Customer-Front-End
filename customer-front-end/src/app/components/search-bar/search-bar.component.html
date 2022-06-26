@@ -1,4 +1,8 @@
 <div class="input-group input-group-sm mb-3">
-  <input class="input-group-text" style="width: 375px" (change)="changeSearchQuery($event)" type="text" [placeholder]="placeholder" />
-  <button class="btn btn-sm btn-primary" style="width: 75px;" (click)="search()">Search</button>
+    <input class="input-group-text" style="width: 375px" (change)="changeSearchQuery($event)" type="text" [placeholder]="placeholder" />
+    <button class="btn btn-sm btn-primary" style="width: 100px;" (click)="search()">Search</button>
+    <button class="btn btn-sm btn-danger" style="width: 100px;" (click)="advancedPanelVisible = !advancedPanelVisible">Advanced...</button>
+</div>
+<div *ngIf="advancedPanelVisible">
+    <ng-content></ng-content>
 </div>

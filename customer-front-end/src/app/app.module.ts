@@ -24,6 +24,7 @@ import { OrderConfirmationComponent } from './pages/checkout/order-confirmation/
 import { OrderItemCardComponent } from './components/cards/order-item-card/order-item-card.component';
 import { DatePipe } from '@angular/common';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { SortButtonComponent } from './components/sort-button/sort-button.component';
 
 @NgModule({
 declarations: [
@@ -45,7 +46,8 @@ declarations: [
     PaymentMethodComponent,
     OrderConfirmationComponent,
     OrderItemCardComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    SortButtonComponent
 ],
 imports: [
     BrowserModule,

@@ -10,6 +10,7 @@ export class SearchBarComponent implements OnInit {
     @Input() placeholder = "Search...";
 
     searchQuery = "";
+    advancedPanelVisible = false;
 
     changeSearchQuery(event: Event) {
         const value = (event.target as HTMLInputElement).value
@@ -25,7 +26,6 @@ export class SearchBarComponent implements OnInit {
 
     constructor() { }
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void { }
 
 }
