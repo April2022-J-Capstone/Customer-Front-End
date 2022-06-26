@@ -23,6 +23,7 @@ import { PaymentMethodComponent } from './pages/checkout/payment-method/payment-
 import { OrderConfirmationComponent } from './pages/checkout/order-confirmation/order-confirmation.component';
 import { OrderItemCardComponent } from './components/cards/order-item-card/order-item-card.component';
 import { DatePipe } from '@angular/common';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 @NgModule({
 declarations: [
@@ -43,7 +44,8 @@ declarations: [
     OrderSummaryComponent,
     PaymentMethodComponent,
     OrderConfirmationComponent,
-    OrderItemCardComponent
+    OrderItemCardComponent,
+    SearchBarComponent
 ],
 imports: [
     BrowserModule,

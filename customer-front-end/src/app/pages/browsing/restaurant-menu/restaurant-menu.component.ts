@@ -15,21 +15,28 @@ export class RestaurantMenuComponent implements OnInit {
     menu: MenuItem[] = [];
     menuLoaded: boolean = false;
 
-    constructor(private restaurantService: RestaurantService, private route: ActivatedRoute) { 
+    search(query: string) {
+        if (this.restaurantID)
+            this.restaurantService.searchRestaurantMenu(this.restaurantID, query).subscribe((data) => this.displayMenuItems(data));
     }
 
-    ngOnInit(): void {
+    displayMenuItems(data: MenuItem[]) {
+        if (data) {
+            this.menuLoaded = true;
+            this.menu = [...data]
+        }
+    }
 
+    constructor(private restaurantService: RestaurantService, private route: ActivatedRoute) { }
+
+    ngOnInit(): void {
         this.route.paramMap.subscribe(params => {
             this.restaurantID = params.get("restaurantId");
             this.menuLoaded = false;
             if (this.restaurantID) {
-                this.restaurantService.getRestaurantMenu(this.restaurantID).subscribe((data: MenuItem[]) => {
-                    if(data) {
-                        this.menuLoaded = true;
-                        this.menu = [...data];
-                    }
-                });
+                this.restaurantService.getRestaurantMenu(this.restaurantID).subscribe((data) => this.displayMenuItems(data));
+            } else {
+                console.error("RestaurantMenuComponent: did not retrieve a restaurant ID");
             }
         });
     }
