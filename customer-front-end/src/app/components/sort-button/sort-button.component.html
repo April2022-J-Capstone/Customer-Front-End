@@ -1,0 +1,9 @@
+<div class="input-group input-group-sm mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Sort By</span>
+    </div>
+    <button class="btn btn-sm btn-outline-secondary" style="width: 100px" (click)="changeLabel()" [innerHtml]="currentLabel()">Off</button>
+    <button *ngIf="canDisplayOff()" class="btn btn-sm btn-secondary" style="width: 50px" (click)="changeSortingType()">Off</button>
+    <button *ngIf="canDisplayAsc()" class="btn btn-sm btn-warning" style="width: 50px" (click)="changeSortingType()">Asc.</button>
+    <button *ngIf="canDisplayDesc()" class="btn btn-sm btn-danger" style="width: 50px" (click)="changeSortingType()">Desc.</button>
+</div>
