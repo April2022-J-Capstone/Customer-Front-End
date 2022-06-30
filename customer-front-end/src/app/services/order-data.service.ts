@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { NewOrder } from '../interfaces/new-order';
+import { UserOrder } from '../interfaces/user-order';
 import { CartService } from './cart.service';
 import { cloneDeep } from 'lodash';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { OrderItem } from '../interfaces/order-item'; 
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,7 @@ export class OrderDataService {
 
     order: NewOrder;
     orderSuccessful: boolean = false;
+    updateItem!: OrderItem;
 
     constructor(private cartService: CartService, private httpClient: HttpClient, private router: Router, private datePipe: DatePipe) {
         this.order = {
@@ -55,6 +58,7 @@ export class OrderDataService {
         //this.order.items = cloneDeep(this.cartService.cart);
         this.order.items = [...this.cartService.cart];
         console.log(this.order.items);
+        console.log(this.order.restaurantIds);
 
         // Calculate subTotal
         let subTotal: number = 0;
@@ -77,7 +81,7 @@ export class OrderDataService {
             this.order.timeCreated = new Date(dateString);
         }
         
-        this.httpClient.post<NewOrder>(environment.basePath + "/order-service/" + 17 + "/order", this.order, {observe: "response"})
+        this.httpClient.post<NewOrder>(environment.basePath + "/order-service/" + 2 + "/order", this.order, {observe: "response"})
         .subscribe({
             next: (response) => {
                 if (response.ok) {
@@ -93,4 +97,55 @@ export class OrderDataService {
         this.cartService.clearCart();
         this.setupOrder();
     }
+
+    getUserOrders(userId: string){
+            return this.httpClient.get<UserOrder[]>(environment.basePath + "/order-service/" + userId + "/orders");
+    }
+
+    getSelectedOrder(userId: any, orderId: String){
+            console.log('user order selected', userId);
+            return this.httpClient.get<UserOrder>(environment.basePath + "/order-service/" + userId + "/orders/" + orderId);
+    }
+
+    updateOrder(userId: number, orderId: number, order:NewOrder){
+            let headers = new HttpHeaders({
+                'update' : 'true'
+            })
+            
+        this.httpClient.put<NewOrder>(environment.basePath + "/order-service/" + userId + "/orders/" + orderId, order, {observe: "response", headers: headers})
+        .subscribe({
+            next: (response) => {
+                if (response.ok) {
+                    this.orderSuccessful = true;
+                    console.log("update success");
+                }
+                
+            },
+            error: (error: HttpErrorResponse) => {
+                console.log(error.message);
+            }
+        });
+    }
+
+    cancelOrder(userId: any, orderId: number){
+        let headers = new HttpHeaders({
+                'cancel' : true.toString()
+            })
+        // console.log(`cancelling users order with userId-${userId} and orderId-${orderId}`);
+        this.httpClient.put<UserOrder>(environment.basePath + "/order-service/" + userId + "/orders/" + orderId + "/cancel", {observe: "response", headers: headers})
+        .subscribe({
+            next: (response) => {
+                if (response.orderId) {
+                    this.orderSuccessful = true;
+                    console.log("cancel success");
+                }
+                
+            },
+            error: (error: HttpErrorResponse) => {
+                console.log(error.message);
+            }
+        });
+    }
+
+
 }

@@ -23,6 +23,10 @@ import { PaymentMethodComponent } from './pages/checkout/payment-method/payment-
 import { OrderConfirmationComponent } from './pages/checkout/order-confirmation/order-confirmation.component';
 import { OrderItemCardComponent } from './components/cards/order-item-card/order-item-card.component';
 import { DatePipe } from '@angular/common';
+import { UserOrdersCardComponent } from './components/cards/user-orders-card/user-orders-card.component';
+import { OrderCardComponent } from './components/cards/order-card/order-card.component';
+import { UserOrderComponent } from './pages/user-order/user-order.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
 declarations: [
@@ -43,13 +47,17 @@ declarations: [
     OrderSummaryComponent,
     PaymentMethodComponent,
     OrderConfirmationComponent,
-    OrderItemCardComponent
+    OrderItemCardComponent,
+    UserOrdersCardComponent,
+    OrderCardComponent,
+    UserOrderComponent
 ],
 imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    FormsModule
 ],
 providers: [
     DatePipe

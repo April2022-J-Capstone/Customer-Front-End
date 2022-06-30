@@ -9,6 +9,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { UserHomeComponent } from './pages/user-home/user-home.component';
+import { UserOrderComponent } from './pages/user-order/user-order.component';
 
 const routes: Routes = [
     {
@@ -17,7 +18,13 @@ const routes: Routes = [
     },
     {
         path: "login",
-        component: LoginComponent
+        children: [
+            {
+                path: "",
+                pathMatch: "full",
+                component: LoginComponent
+            }
+        ]
     },
     {
         path: "register",
@@ -63,6 +70,10 @@ const routes: Routes = [
                 path: "",
                 pathMatch: "full",
                 component: UserHomeComponent
+            },
+            {
+                path: ":orderId",
+                component: UserOrderComponent
             }
         ]
         
