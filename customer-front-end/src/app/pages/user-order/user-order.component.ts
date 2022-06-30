@@ -112,6 +112,9 @@ export class UserOrderComponent implements OnInit {
 
   removeItem(itemIndex: number){
     this.orderItems.splice(itemIndex, 1);
+    if(this.allMenuItemsLoaded == false){
+      this.loadAllMenuItems();
+    }
   }
 
   loadAddItem(){
@@ -220,7 +223,7 @@ export class UserOrderComponent implements OnInit {
     
     console.log('sending to update: ', this.editedOrder);
 
-    // this.orderDataService.updateOrder(this.userID, this.order.orderId, this.editedOrder);
+    this.orderDataService.updateOrder(this.userID, this.order.orderId, this.editedOrder);
   }
   
   cancelEdit(){
