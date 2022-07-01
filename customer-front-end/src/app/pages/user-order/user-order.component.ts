@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OrderDataService } from 'src/app/services/order-data.service';
 import { RestaurantService } from 'src/app/services/restaurant.service';
+import { DatePipe } from '@angular/common';
 import { Restaurant } from 'src/app/interfaces/restaurant';
 import { OrderItem } from 'src/app/interfaces/order-item';
 import { UserOrder } from 'src/app/interfaces/user-order';
@@ -51,7 +52,7 @@ export class UserOrderComponent implements OnInit {
   addedMenuItem!: OrderItem|{};
 
 
-  constructor(private orderDataService: OrderDataService, private restaurantService: RestaurantService, private route: ActivatedRoute) { 
+  constructor(private orderDataService: OrderDataService, private restaurantService: RestaurantService, private route: ActivatedRoute, private datePipe:DatePipe) { 
     this.editedOrder = {
       subTotal: 0,
       deliveryFee: 0,
@@ -91,6 +92,7 @@ export class UserOrderComponent implements OnInit {
             this.order = data;
             // console.log('order.items: ', this.order.items.forEach(function(item){console.log(`order.item: ${item.name}`)}));
             // console.log('orderItems: ', this.orderItems.forEach(function(item){console.log(`orderItem: ${item.name}`)}));
+            const timeCreated = this.datePipe.transform(this.order.timeCreated, 'short')?.toString;
             this.order.items = this.orderItems;
           } 
         })

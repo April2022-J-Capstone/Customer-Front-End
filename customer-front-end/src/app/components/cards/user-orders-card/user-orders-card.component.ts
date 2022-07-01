@@ -16,7 +16,7 @@ export class UserOrdersCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('userId: ', this.userId);
+    // console.log('userId: ', this.userId);
   }
 
 }

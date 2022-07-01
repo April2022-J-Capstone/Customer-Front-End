@@ -2,7 +2,7 @@
     <div class="card-body d-flex flex-column order" routerLink="{{orderData.orderId}}">
         <p>Order Id: {{orderData.orderId}}</p>
         <p>Order Status: {{orderData.orderStatus}}</p>
-        <p>Order Total: {{orderData.total}}</p>
-        <p>Order Placed On: {{orderData.timeCreated}}</p>
+        <p>Order Total: {{orderData.total | currency }}</p>
+        <p>Order Placed On: {{orderData.timeCreated | date: 'short': 'UTC'}}</p>
     </div>
 </div>

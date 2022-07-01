@@ -128,11 +128,11 @@ export class OrderDataService {
     }
 
     cancelOrder(userId: any, orderId: number){
-        let headers = new HttpHeaders({
-                'cancel' : true.toString()
+        let cancelHeaders = new HttpHeaders({
+                'cancel' : 'True'
             })
         // console.log(`cancelling users order with userId-${userId} and orderId-${orderId}`);
-        this.httpClient.put<UserOrder>(environment.basePath + "/order-service/" + userId + "/orders/" + orderId + "/cancel", {observe: "response", headers: headers})
+        this.httpClient.put<UserOrder>(environment.basePath + "/order-service/" + userId + "/orders/" + orderId + "/cancel", {observe: "response", headers: cancelHeaders})
         .subscribe({
             next: (response) => {
                 if (response.orderId) {
