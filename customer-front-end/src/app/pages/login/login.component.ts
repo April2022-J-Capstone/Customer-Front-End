@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   }
 
   userHomeRedirect(userId: string){
-    console.log("go to userHome", userId);
+    // console.log("go to userHome", userId);
     this.router.navigate([`/user/${userId}`])
   }
 

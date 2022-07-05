@@ -17,44 +17,38 @@ import { MenuItem } from 'src/app/interfaces/menu-item';
 })
 export class UserOrderComponent implements OnInit {
 
-  orderID!: string|null;
-  userID!: any;
-
-
-  // boolean for editing phases
+  // booleans
   addingItem: boolean = false;
-  removingItem: boolean = false;
-  editing: boolean = false;
-  
-  cancelling: boolean = false;
-  orderCanceled: boolean = false;
-
-  // boolean for if data for model was loaded
-  orderLoaded: boolean = false;
   allMenuItemsLoaded: boolean = false;
+  cancelling: boolean = false;
+  editing: boolean = false;
+  orderCanceled: boolean = false;
+  orderLoaded: boolean = false;
+  removingItem: boolean = false;
   restaurantsLoaded: boolean = false;
   restaurantMenuLoaded: boolean = false;
 
+  // id's
+  orderID!: string|null;
+  restaurantID!:  any|null;
+  userID!: any;
 
+  // update inputs
   updateTip!: number|null;
   driverNotes!: string|null;
   restaurantNotes!: string|null;
 
-
-
+  // models
   order!: UserOrder;
   orderItems: OrderItem[] = [];
   editedOrder: NewOrder;
   editedOrderItem!: NewOrderItem;
 
-
-  restaurantID!:  any|null;
-  allRestaurants!: Restaurant[];
+  addedMenuItem!: OrderItem|{};
   allMenuItems: MenuItem[] = [];
-  restaurantCount!: number| 0;
+  allRestaurants!: Restaurant[];
   restaurant: string = "default";
   restaurantMenu: MenuItem[] = [];
-  addedMenuItem!: OrderItem|{};
 
 
   constructor(private orderDataService: OrderDataService, private restaurantService: RestaurantService, private route: ActivatedRoute, private datePipe:DatePipe) { 
@@ -73,8 +67,6 @@ export class UserOrderComponent implements OnInit {
     }
   }
 
-
-
   ngOnInit(): void {
     // createUserOrder data on load
     this.route.paramMap.subscribe(params => {
@@ -86,11 +78,9 @@ export class UserOrderComponent implements OnInit {
           if(data){
             this.orderLoaded = true;
             for(let i = 0; i < data.items.length; i++){
-                // console.log('looping through orderItems for enabled')
                 if(data.items[i].enabled == false){
-                  // console.log('item enabled is false ' + data.items[i])
+                  // console.log('item enabled is false, do not display to user ' + data.items[i])
                 } else {
-                  // console.log('pushing item');
                   this.orderItems.push(data.items[i]);
                 }
               }
@@ -98,23 +88,19 @@ export class UserOrderComponent implements OnInit {
             if(this.order.orderStatus == "canceled"){
               this.orderCanceled = true;
             }
-            const timeCreated = this.datePipe.transform(this.order.timeCreated, 'short')?.toString;
             this.order.items = this.orderItems;
           } 
         })
       }
     })
-    
     this.loadRestaurants();
   }
 
   loadRestaurants(){
     if(this.restaurantsLoaded == false){
-      console.log('loading restaurants');
         this.restaurantService.getAllRestaurants().subscribe((data: Restaurant[]) => {
           if(data){
-              this.allRestaurants = [...data];
-              console.log('restaurants loaded');
+            this.allRestaurants = [...data];
           }
         });
     }
@@ -123,11 +109,9 @@ export class UserOrderComponent implements OnInit {
   loadEditPage(){
     this.editing = true;
     if(this.allMenuItemsLoaded == false){
-      console.log('loading all menu items');
       this.loadAllMenuItems();
       this.allMenuItemsLoaded = true;
     }
-    console.log('allMenuItemsLoaded:  ' + this.allMenuItemsLoaded);
   }
 
 
@@ -137,7 +121,6 @@ export class UserOrderComponent implements OnInit {
 
   loadAddItem(){
     this.addingItem = true;
-    console.log("addItem button clicked");
   }
 
   addItem(itemIndex: number){
@@ -153,15 +136,10 @@ export class UserOrderComponent implements OnInit {
 
   loadAllMenuItems(){
     this.allMenuItemsLoaded = true;
-    console.log('loading menuItems')
     for(let i = 0; i < this.allRestaurants.length; i++){
-      console.log('inside for loop');
       this.restaurantID = this.allRestaurants[i].restaurantId;
-      console.log('running getRestaurantMenu');
       this.restaurantService.getRestaurantMenu(this.restaurantID).subscribe((data: MenuItem[]) => {
           if(data) {
-            console.log('menu being loaded');
-              console.log('data: ', data);
               for(let item of data){
                 this.allMenuItems.push(item);
               }
@@ -170,12 +148,10 @@ export class UserOrderComponent implements OnInit {
           }       
       });
     }
-    console.log('finished loading menu items');
   }
 
   loadRestaurantMenu(restaurant: string){
     this.restaurantMenu = [];
-
     for(let i = 0; i < this.allMenuItems.length; i++){
       if(this.allMenuItems[i].restaurant_name == restaurant){
         this.restaurantMenu.push(this.allMenuItems[i]);
@@ -186,12 +162,9 @@ export class UserOrderComponent implements OnInit {
 
   matchMenuItemToOrderItem(){
     // this.orderItems.forEach
-    console.log('matching menu items to order items');
     for(let i = 0; i < this.orderItems.length; i++){
-      console.log('outer loop: ' + i);
       this.editedOrderItem.menuItemId = 0;
       for(let x = 0; x < this.allMenuItems.length; x++){
-        console.log('inner loop: ' + x);
         if(this.allMenuItems[x].name == this.orderItems[i].name){
           this.editedOrder.items.push({menuItemId: this.allMenuItems[x].itemId, price: this.allMenuItems[x].price});
         }
@@ -200,14 +173,10 @@ export class UserOrderComponent implements OnInit {
   }
 
   sendEdit(){
-    console.log("send edit button clicked");
-
-
     // calculate Tip
     if(this.order.tip == null){
       this.order.tip = 0;
     }
-
     if(this.updateTip == null){
       this.editedOrder.tip = this.order.tip;
     } else {
@@ -215,24 +184,36 @@ export class UserOrderComponent implements OnInit {
       this.order.tip = this.updateTip;
       this.editedOrder.tip = this.order.tip;
     }
-  
 
-    // 
+    // check order notes have a value
+    if(this.driverNotes == null){
+      this.editedOrder.driverNotes = this.order.driverNotes;
+    } else {
+      this.editedOrder.driverNotes = this.driverNotes;
+    }
+    if(this.restaurantNotes == null){
+      this.editedOrder.restaurantNotes = this.order.restaurantNotes;
+    } else {
+      this.editedOrder.restaurantNotes = this.restaurantNotes;
+    }
+
+    // no items added or removed, so just send original items from order
     if(this.allMenuItemsLoaded == false){
       this.editedOrder.items = this.orderItems;
     }
 
-
+    // need menu item id in order to send our items
     this.matchMenuItemToOrderItem();
 
-    
+    // get total of all items being sent
     for(let item of this.editedOrder.items){
-      console.log('items to be sent for update', item);
+      // console.log('items to be sent for update', item);
       this.editedOrder.subTotal += item.price;
     }
 
-    // set up order as neworder 
     this.editedOrder.deliveryFee = this.order.deliveryFee;
+
+    // don't calculate tax if we do not have any items in order
     if(this.editedOrder.items.length == 0){
       this.editedOrder.tax = 0;
     } else {
@@ -240,20 +221,8 @@ export class UserOrderComponent implements OnInit {
     }
 
     this.editedOrder.total = this.editedOrder.tip + this.editedOrder.deliveryFee + this.editedOrder.tax + this.editedOrder.subTotal;
-    if(this.driverNotes == null){
-      this.editedOrder.driverNotes = this.order.driverNotes;
-    } else {
-      this.editedOrder.driverNotes = this.driverNotes;
-    }
-
-    if(this.restaurantNotes == null){
-      this.editedOrder.restaurantNotes = this.order.restaurantNotes;
-    } else {
-      this.editedOrder.restaurantNotes = this.restaurantNotes;
-    }
     
-    console.log('sending to update: ', this.editedOrder);
-
+    // console.log('sending to update: ', this.editedOrder);
     this.orderDataService.updateOrder(this.userID, this.order.orderId, this.editedOrder);
   }
   
@@ -266,7 +235,7 @@ export class UserOrderComponent implements OnInit {
 
   cancelOrder(){
     console.log("cancel order button clicked");
-    this.orderDataService.cancelOrder(this.userID, this.order.orderId);
+    this.orderDataService.cancelOrder(this.userID, this.order.orderId, this.order);
 
   }
 

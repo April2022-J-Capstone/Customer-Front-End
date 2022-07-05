@@ -101,12 +101,11 @@ export class OrderDataService {
     }
 
     getUserOrders(userId: string){
-            return this.httpClient.get<UserOrder[]>(environment.basePath + "/order-service/" + userId + "/orders");
+        return this.httpClient.get<UserOrder[]>(environment.basePath + "/order-service/" + userId + "/orders");
     }
 
     getSelectedOrder(userId: any, orderId: String){
-            console.log('user order selected', userId);
-            return this.httpClient.get<UserOrder>(environment.basePath + "/order-service/" + userId + "/orders/" + orderId);
+        return this.httpClient.get<UserOrder>(environment.basePath + "/order-service/" + userId + "/orders/" + orderId);
     }
 
     updateOrder(userId: number, orderId: number, order:NewOrder){
@@ -131,12 +130,12 @@ export class OrderDataService {
         });
     }
 
-    cancelOrder(userId: any, orderId: number){
-        let cancelHeaders = new HttpHeaders({
-                'cancel' : 'True'
+    cancelOrder(userId: number, orderId: number, order: UserOrder){
+        let headers = new HttpHeaders({
+                'cancel' : 'true'
             })
         // console.log(`cancelling users order with userId-${userId} and orderId-${orderId}`);
-        this.httpClient.put<UserOrder>(environment.basePath + "/order-service/" + userId + "/orders/" + orderId + "/cancel", {observe: "response", headers: cancelHeaders})
+        this.httpClient.put<UserOrder>(environment.basePath + "/order-service/" + userId + "/orders/" + orderId + "/cancel", order, {observe: "response", headers: headers})
         .subscribe({
             next: (response) => {
                 if (response) {

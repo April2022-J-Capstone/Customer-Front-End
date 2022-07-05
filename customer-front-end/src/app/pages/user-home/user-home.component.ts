@@ -19,16 +19,10 @@ export class UserHomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-    console.log(`Getting users orders.`)
     this.userID = params.get("userId");
-    console.log(`userID from route ${this.userID}`);
     this.orderService.getUserOrders(this.userID).subscribe((data: UserOrder[]) => {
       this.ordersLoaded = false;
       if(data.length > 0) {
-        console.log(`data: ${data}`);
-        for(let x of data){
-          console.log('x: ' + x.orderId);
-        }
           this.ordersLoaded = true;
           this.allOrders = [...data]
       } else {
@@ -36,7 +30,6 @@ export class UserHomeComponent implements OnInit {
         this.emptyData = true;
       }
     });
-    console.log(`all orders: ${this.allOrders}`);
   });
   }
 }
