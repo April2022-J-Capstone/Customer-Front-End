@@ -23,8 +23,11 @@ export class UserOrderComponent implements OnInit {
 
   // boolean for editing phases
   addingItem: boolean = false;
-  cancelling: boolean = false;
+  removingItem: boolean = false;
   editing: boolean = false;
+  
+  cancelling: boolean = false;
+  orderCanceled: boolean = false;
 
   // boolean for if data for model was loaded
   orderLoaded: boolean = false;
@@ -33,7 +36,9 @@ export class UserOrderComponent implements OnInit {
   restaurantMenuLoaded: boolean = false;
 
 
-  updateTip!: number|0;
+  updateTip!: number|null;
+  driverNotes!: string|null;
+  restaurantNotes!: string|null;
 
 
 
@@ -90,42 +95,49 @@ export class UserOrderComponent implements OnInit {
                 }
               }
             this.order = data;
-            // console.log('order.items: ', this.order.items.forEach(function(item){console.log(`order.item: ${item.name}`)}));
-            // console.log('orderItems: ', this.orderItems.forEach(function(item){console.log(`orderItem: ${item.name}`)}));
+            if(this.order.orderStatus == "canceled"){
+              this.orderCanceled = true;
+            }
             const timeCreated = this.datePipe.transform(this.order.timeCreated, 'short')?.toString;
             this.order.items = this.orderItems;
           } 
         })
       }
     })
+    
+    this.loadRestaurants();
+  }
+
+  loadRestaurants(){
+    if(this.restaurantsLoaded == false){
+      console.log('loading restaurants');
+        this.restaurantService.getAllRestaurants().subscribe((data: Restaurant[]) => {
+          if(data){
+              this.allRestaurants = [...data];
+              console.log('restaurants loaded');
+          }
+        });
+    }
   }
 
   loadEditPage(){
     this.editing = true;
-
-    
-    this.restaurantService.getAllRestaurants().subscribe((data: Restaurant[]) => {
-      if(data){
-          this.allRestaurants = [...data];
-      }
-    });
+    if(this.allMenuItemsLoaded == false){
+      console.log('loading all menu items');
+      this.loadAllMenuItems();
+      this.allMenuItemsLoaded = true;
+    }
+    console.log('allMenuItemsLoaded:  ' + this.allMenuItemsLoaded);
   }
 
 
   removeItem(itemIndex: number){
     this.orderItems.splice(itemIndex, 1);
-    if(this.allMenuItemsLoaded == false){
-      this.loadAllMenuItems();
-    }
   }
 
   loadAddItem(){
     this.addingItem = true;
     console.log("addItem button clicked");
-    if(this.allMenuItemsLoaded == false){
-      this.loadAllMenuItems();
-    }
-
   }
 
   addItem(itemIndex: number){
@@ -142,7 +154,7 @@ export class UserOrderComponent implements OnInit {
   loadAllMenuItems(){
     this.allMenuItemsLoaded = true;
     console.log('loading menuItems')
-    for(let i = 0; i < 4; i++){
+    for(let i = 0; i < this.allRestaurants.length; i++){
       console.log('inside for loop');
       this.restaurantID = this.allRestaurants[i].restaurantId;
       console.log('running getRestaurantMenu');
@@ -174,9 +186,12 @@ export class UserOrderComponent implements OnInit {
 
   matchMenuItemToOrderItem(){
     // this.orderItems.forEach
+    console.log('matching menu items to order items');
     for(let i = 0; i < this.orderItems.length; i++){
+      console.log('outer loop: ' + i);
       this.editedOrderItem.menuItemId = 0;
       for(let x = 0; x < this.allMenuItems.length; x++){
+        console.log('inner loop: ' + x);
         if(this.allMenuItems[x].name == this.orderItems[i].name){
           this.editedOrder.items.push({menuItemId: this.allMenuItems[x].itemId, price: this.allMenuItems[x].price});
         }
@@ -186,34 +201,26 @@ export class UserOrderComponent implements OnInit {
 
   sendEdit(){
     console.log("send edit button clicked");
-    
+
+
+    // calculate Tip
     if(this.order.tip == null){
       this.order.tip = 0;
     }
+
     if(this.updateTip == null){
-      this.updateTip = 0;
-    }
-
-    if(this.order.tip < this.updateTip){
-      console.log("tip was increased");
+      this.editedOrder.tip = this.order.tip;
     } else {
-      console.log("tip was decreased")
+      this.order.total = this.order.total - this.order.tip;
+      this.order.tip = this.updateTip;
+      this.editedOrder.tip = this.order.tip;
     }
+  
 
-
-
-    this.order.total = this.order.total - this.order.tip;
-    this.order.tip = this.updateTip;
-    this.order.total = this.order.total + this.order.tip;
-
-
-    // set up order as neworder 
-    this.editedOrder.subTotal = this.order.subTotal;
-    this.editedOrder.tip = this.order.tip;
-    this.editedOrder.deliveryFee = this.order.deliveryFee;
-    this.editedOrder.tax = this.order.tax;
-    this.editedOrder.total = this.order.total;
-
+    // 
+    if(this.allMenuItemsLoaded == false){
+      this.editedOrder.items = this.orderItems;
+    }
 
 
     this.matchMenuItemToOrderItem();
@@ -221,6 +228,28 @@ export class UserOrderComponent implements OnInit {
     
     for(let item of this.editedOrder.items){
       console.log('items to be sent for update', item);
+      this.editedOrder.subTotal += item.price;
+    }
+
+    // set up order as neworder 
+    this.editedOrder.deliveryFee = this.order.deliveryFee;
+    if(this.editedOrder.items.length == 0){
+      this.editedOrder.tax = 0;
+    } else {
+      this.editedOrder.tax = this.order.tax;
+    }
+
+    this.editedOrder.total = this.editedOrder.tip + this.editedOrder.deliveryFee + this.editedOrder.tax + this.editedOrder.subTotal;
+    if(this.driverNotes == null){
+      this.editedOrder.driverNotes = this.order.driverNotes;
+    } else {
+      this.editedOrder.driverNotes = this.driverNotes;
+    }
+
+    if(this.restaurantNotes == null){
+      this.editedOrder.restaurantNotes = this.order.restaurantNotes;
+    } else {
+      this.editedOrder.restaurantNotes = this.restaurantNotes;
     }
     
     console.log('sending to update: ', this.editedOrder);
@@ -238,6 +267,7 @@ export class UserOrderComponent implements OnInit {
   cancelOrder(){
     console.log("cancel order button clicked");
     this.orderDataService.cancelOrder(this.userID, this.order.orderId);
+
   }
 
 }

@@ -27,6 +27,8 @@ import { UserOrdersCardComponent } from './components/cards/user-orders-card/use
 import { OrderCardComponent } from './components/cards/order-card/order-card.component';
 import { UserOrderComponent } from './pages/user-order/user-order.component';
 import { FormsModule } from '@angular/forms';
+import { CancelConfirmationComponent } from './pages/cancel-confirmation/cancel-confirmation.component';
+import { UpdateConfirmationComponent } from './pages/update-confirmation/update-confirmation.component';
 
 @NgModule({
 declarations: [
@@ -50,7 +52,9 @@ declarations: [
     OrderItemCardComponent,
     UserOrdersCardComponent,
     OrderCardComponent,
-    UserOrderComponent
+    UserOrderComponent,
+    CancelConfirmationComponent,
+    UpdateConfirmationComponent
 ],
 imports: [
     BrowserModule,

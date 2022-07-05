@@ -17,6 +17,8 @@ export class OrderDataService {
     order: NewOrder;
     orderSuccessful: boolean = false;
     updateItem!: OrderItem;
+    cancelSuccessful: boolean = false;
+    updateSuccessful:boolean = false;
 
     constructor(private cartService: CartService, private httpClient: HttpClient, private router: Router, private datePipe: DatePipe) {
         this.order = {
@@ -116,13 +118,15 @@ export class OrderDataService {
         .subscribe({
             next: (response) => {
                 if (response.ok) {
-                    this.orderSuccessful = true;
+                    this.updateSuccessful = true;
                     console.log("update success");
                 }
+                this.router.navigate(["../update-confirmation"]);
                 
             },
             error: (error: HttpErrorResponse) => {
                 console.log(error.message);
+                this.router.navigate(["../update-confirmation"]);
             }
         });
     }
@@ -135,14 +139,15 @@ export class OrderDataService {
         this.httpClient.put<UserOrder>(environment.basePath + "/order-service/" + userId + "/orders/" + orderId + "/cancel", {observe: "response", headers: cancelHeaders})
         .subscribe({
             next: (response) => {
-                if (response.orderId) {
-                    this.orderSuccessful = true;
-                    console.log("cancel success");
+                if (response) {
+                    this.cancelSuccessful = true;
+                    console.log("Cancel success");
                 }
-                
+                this.router.navigate(["../cancel-confirmation"]);
             },
             error: (error: HttpErrorResponse) => {
                 console.log(error.message);
+                this.router.navigate(["../cancel-confirmation"]);
             }
         });
     }

@@ -8,8 +8,10 @@ import { PaymentMethodComponent } from './pages/checkout/payment-method/payment-
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { UserHomeComponent } from './pages/user-home/user-home.component';
+import { UserHomeComponent } from './pages/user-home/user-home.component'
 import { UserOrderComponent } from './pages/user-order/user-order.component';
+import { CancelConfirmationComponent } from './pages/cancel-confirmation/cancel-confirmation.component';
+import { UpdateConfirmationComponent } from './pages/update-confirmation/update-confirmation.component';
 
 const routes: Routes = [
     {
@@ -77,6 +79,14 @@ const routes: Routes = [
             }
         ]
         
+    },
+    {
+        path:"update-confirmation",
+        component: UpdateConfirmationComponent
+    },
+    {
+        path:"cancel-confirmation",
+        component: CancelConfirmationComponent
     },
     {
         path: "",

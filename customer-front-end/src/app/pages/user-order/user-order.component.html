@@ -7,22 +7,24 @@
         <div class="d-flex justify-content-center" *ngIf="!orderLoaded">
             <div class="spinner-border"></div>
         </div>
-        <div class="d-flex flex-wrap align-content-center justify-content-center border rounded p-3" *ngIf="!editing">
+        <div class="d-flex flex-wrap align-content-center justify-content-center border rounded p-3" *ngIf="orderLoaded && !editing">
             <!-- <app-order-card  [orderData]="order"></app-order-card> -->
             <div >
                 <p>Order ID: {{order.orderId}}</p>
+                <p>Order Time Created: {{order.timeCreated | date: 'short': 'UTC'}}</p>
                 <p>Order Status: {{order.orderStatus}}</p>
-                <p>Delivery Fee: {{order.deliveryFee | currency }}</p>
+                <p>Order Driver: {{order.driverFirstName}}</p>
+                <p>Driver Notes: {{order.driverNotes}}</p>
                 <p>Subtotal: {{order.subTotal | currency }}</p>
+                <p>Delivery Fee: {{order.deliveryFee | currency }}</p>
                 <p>Tip: {{order.tip | currency}}</p>
                 <p>Tax: {{order.tax | currency }}</p>
                 <p >Total: {{order.total | currency }}</p>
-                <p>Order Time Created: {{order.timeCreated | date: 'short': 'UTC'}}</p>
                 <!-- <p>Order Scheduled For: {{order.scheduledFor}}</p> -->
                 <p>Order Scheduled For: No Time Slot Selected</p>
                 <!-- <p>Order Net Loyalty Points: {{order.netLoyalty}}</p> -->
                 <p>Order Net Loyalty Points: 0</p>
-                <p>Order Driver: {{order.driverFirstName}}</p>
+                <p>Restaurant Notes: {{order.restaurantNotes}}</p>
                 <p>Items Ordered: {{order.items.length}}</p>
                     <div *ngFor="let item of order.items">
                         <h6 >{{item.name}}</h6>
@@ -42,12 +44,16 @@
         <div >
             <p>Order ID: {{order.orderId}}</p>
             <p>Order Status: {{order.orderStatus}}</p>
+            <p>Driver Notes: {{order.driverNotes}}</p>
+            <input type="text" placeholder="{{order.driverNotes}}" id="driverNotes" name="driverNotes"  [(ngModel)]="driverNotes" />
             <p>Delivery Fee: {{order.deliveryFee | currency }}</p>
             <p>Order Tip: {{order.tip | currency}}</p>
             <input type="number" placeholder="{{order.tip}}" id="updateTip" name="updateTip" [(ngModel)]="updateTip" />
             <p>Order Subtotal: {{order.subTotal | currency }}</p>
             <p>Order Tax: {{order.tax | currency }}</p>
             <p>Order Total: {{order.total | currency}}</p>
+            <p>Restaurant Notes: {{order.restaurantNotes}}</p>
+            <input type="text" placeholder="{{order.restaurantNotes}}" id="restaurantNotes" name="restaurantNotes" [(ngModel)]="restaurantNotes" />
             <p>Items Ordered:</p>
                     <div *ngFor="let item of orderItems; let i = index" [attr.data-index]="i">
                         <h6 >{{item.name}}</h6>
@@ -77,11 +83,11 @@
         </div>
     </div>
 </div>
-<div *ngIf="!editing">
+<div *ngIf="!editing && !orderCanceled">
     <button class="btn btn-primary" (click)="loadEditPage()">Edit Order</button>
     <button class="btn btn-danger" id="cancelOrder" (click)="cancelOrder()">Cancel Order</button>
 </div>
-<div *ngIf="editing">
+<div *ngIf="editing && !orderCanceled">
     <button class="btn btn-primary" (click)="sendEdit()">Send Edit</button>
     <button class="btn btn-danger" (click)="cancelEdit()">Cancel Edit</button>
 </div>
