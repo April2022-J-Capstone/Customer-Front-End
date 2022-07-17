@@ -222,7 +222,7 @@ export class UserOrderComponent implements OnInit {
 
     this.editedOrder.total = this.editedOrder.tip + this.editedOrder.deliveryFee + this.editedOrder.tax + this.editedOrder.subTotal;
     
-    // console.log('sending to update: ', this.editedOrder);
+    console.log('sending to update: ', this.editedOrder);
     this.orderDataService.updateOrder(this.userID, this.order.orderId, this.editedOrder);
   }
   
@@ -238,5 +238,4 @@ export class UserOrderComponent implements OnInit {
     this.orderDataService.cancelOrder(this.userID, this.order.orderId, this.order);
 
   }
-
 }

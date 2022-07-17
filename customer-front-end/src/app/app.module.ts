@@ -29,6 +29,7 @@ import { UserOrderComponent } from './pages/user-order/user-order.component';
 import { FormsModule } from '@angular/forms';
 import { CancelConfirmationComponent } from './pages/cancel-confirmation/cancel-confirmation.component';
 import { UpdateConfirmationComponent } from './pages/update-confirmation/update-confirmation.component';
+import { UserHistoryComponent } from './pages/user-history/user-history.component';
 
 @NgModule({
 declarations: [
@@ -54,7 +55,8 @@ declarations: [
     OrderCardComponent,
     UserOrderComponent,
     CancelConfirmationComponent,
-    UpdateConfirmationComponent
+    UpdateConfirmationComponent,
+    UserHistoryComponent
 ],
 imports: [
     BrowserModule,
